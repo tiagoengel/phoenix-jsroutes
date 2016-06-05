@@ -16,13 +16,8 @@ defmodule PhoenixJsrouter do
   end
 
   def function_body(%{path: path}) do
-    Regex.split(~r{(?=/)}, path)
-    |> Enum.map(&to_url_part/1)
-    |> Enum.join(" + ")
+    PhoenixJsrouter.UrlTransformer.to_js(path)
   end
-
-  defp to_url_part(<<"/:", rest :: binary>>), do: "'/' + #{rest}"
-  defp to_url_part(path_part), do: "'#{path_part}'"
 
   # just for tests, so we can run the task in this project.
   # Should go away in the future

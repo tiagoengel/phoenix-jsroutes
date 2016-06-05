@@ -25,7 +25,7 @@ defmodule Mix.Tasks.Phoenix.Gen.JsroutesTest do
       assert file =~ "return '/';"
 
       assert file =~ "userUpdate(id) {"
-      assert file =~ "return '/users' + '/' + id;"
+      assert file =~ "return '/users/' + id;"
     end
   end
 
