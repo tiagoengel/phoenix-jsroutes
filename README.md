@@ -1,5 +1,7 @@
 # PhoenixJsrouter
 
+![build](https://travis-ci.org/tiagoengel/phoenix-jsroutes.svg?branch=master)
+
 **WORK IN PROGRESS**
 
 Javascript routing for the phoenix framework.
