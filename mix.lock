@@ -1,0 +1,4 @@
+%{"elixir_v8": {:hex, :elixir_v8, "0.2.2", "ed2158c1cf55f8f773ba41f33476c28e3d3638a1bc04225b7be0103a99e06d00", [:mix], [{:poolboy, "~> 1.5", [hex: :poolboy, optional: false]}, {:exjsx, "~> 3.2", [hex: :exjsx, optional: false]}]},
+  "exjsx": {:hex, :exjsx, "3.2.0", "7136cc739ace295fc74c378f33699e5145bead4fdc1b4799822d0287489136fb", [:mix], [{:jsx, "~> 2.6.2", [hex: :jsx, optional: false]}]},
+  "jsx": {:hex, :jsx, "2.6.2", "213721e058da0587a4bce3cc8a00ff6684ced229c8f9223245c6ff2c88fbaa5a", [:mix, :rebar], []},
+  "poolboy": {:hex, :poolboy, "1.5.1", "6b46163901cfd0a1b43d692657ed9d7e599853b3b21b95ae5ae0a777cf9b6ca8", [:rebar], []}}

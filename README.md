@@ -14,5 +14,5 @@ Javascript routing for the phoenix framework.
 
 ## Contributors
 
-| ![marcioj](https://avatars.githubusercontent.com/marcioj?s=100)<br/>[Marcio Junior](https://github.com/marcioj) |![horaciosystem](https://avatars.githubusercontent.com/horaciosystem?s=100)<br/>[Horacio Fernandes](https://github.com/horaciosystem) | ![diogovk](https://avatars.githubusercontent.com/diogovk?s=100)<br/>[Diogo Kersting](https://github.com/diogovk)
-| :---: | :---: | :---: |
+| ![marcioj](https://avatars.githubusercontent.com/marcioj?s=100)<br/>[Marcio Junior](https://github.com/marcioj) |![horaciosystem](https://avatars.githubusercontent.com/horaciosystem?s=100)<br/>[Horacio Fernandes](https://github.com/horaciosystem) | ![diogovk](https://avatars.githubusercontent.com/diogovk?s=100)<br/>[Diogo Kersting](https://github.com/diogovk) | [Paulo](https://github.com/paaulo)
+| :---: | :---: | :---: | :----: |

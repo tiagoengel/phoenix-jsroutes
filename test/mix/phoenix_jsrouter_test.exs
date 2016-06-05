@@ -4,16 +4,6 @@ defmodule PhoenixJsrouterTest do
 
   import PhoenixJsrouter
 
-  def __routes__ do
-    [
-      %{helper: "user", opts: :create, path: "/users"},
-      %{helper: "user", opts: :update, path: "/users/:id"},
-      %{helper: "user_friends", opts: :create, path: "/users/:user_id/friends"},
-      %{helper: "user_friends", opts: :update, path: "/users/:user_id/friends/:id"},
-      %{helper: "user_friends", opts: :delete, path: "/users/:user_id/friends/:id"}
-    ]
-  end
-
   test "function_name returns the camelized js function name" do
     assert function_name(%{helper: "user", opts: :create}) == "userCreate"
     assert function_name(%{helper: "user_friends", opts: :update}) == "userFriendsUpdate"

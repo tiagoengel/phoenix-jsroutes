@@ -31,10 +31,10 @@ defmodule PhoenixJsrouter do
 
   def function_body(%{path: path}) do
     Regex.split(~r{(?=/)}, path)
-    |> Enum.map(fn
-      <<"/:", rest :: binary>> -> "'/' + #{rest}"
-      path_part -> "'#{path_part}'"
-    end)
+    |> Enum.map(&to_url_part/1)
     |> Enum.join(" + ")
   end
+
+  defp to_url_part(<<"/:", rest :: binary>>), do: "'/' + #{rest}"
+  defp to_url_part(path_part), do: "'#{path_part}'"
 end
