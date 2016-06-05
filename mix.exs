@@ -27,7 +27,7 @@ defmodule PhoenixJsrouter.Mixfile do
   #
   # Type "mix help deps" for more examples and options
   defp deps do
-    [{:phoenix, "~> 1.2.0-rc.1", only: :test}]
+    [{:phoenix, "~> 1.2.0-rc.1"}]
   end
 
 end

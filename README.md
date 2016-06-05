@@ -7,7 +7,7 @@ Javascript routing for the phoenix framework.
 ## TODO
 
 - [ ] Test the generated js module.
-- [ ] Use the current phoenix application routes to generate the file
+- [X] Use the current phoenix application routes to generate the file
 - [ ] Test the task with a real phoenix application
 - [ ] Allow to configure a list of "scopes" to generate the routes only for these scopes
 - [ ] Get the output path from a configuration

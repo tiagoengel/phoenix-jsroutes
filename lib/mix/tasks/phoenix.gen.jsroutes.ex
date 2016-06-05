@@ -1,8 +1,6 @@
 defmodule Mix.Tasks.Phoenix.Gen.Jsroutes do
   use Mix.Task
-
   require EEx
-  EEx.function_from_file :def, :gen_routes, "priv/templates/jsroutes.exs", [:routes]
 
   @default_path "jsroutes.js"
 
@@ -18,6 +16,8 @@ defmodule Mix.Tasks.Phoenix.Gen.Jsroutes do
     Mix.Shell.IO.info "Generated #{@default_path}"
   end
 
+  EEx.function_from_file :defp, :gen_routes, "priv/templates/jsroutes.exs", [:routes]
+
   defp router(args) do
    cond do
      # TODO: Suport umbrella applications
@@ -26,8 +26,7 @@ defmodule Mix.Tasks.Phoenix.Gen.Jsroutes do
      router = Enum.at(args, 0) ->
        Module.concat("Elixir", router)
      true ->
-      #  Module.concat(Mix.Phoenix.base(), "Router")
-      PhoenixJsrouter
+       Module.concat(Mix.Phoenix.base(), "Router")
    end
  end
 
@@ -42,4 +41,5 @@ defmodule Mix.Tasks.Phoenix.Gen.Jsroutes do
  defp only_routes_with_helpers(routes) do
    Enum.filter(routes, fn %{helper: helper} -> !is_nil(helper) end)
  end
+
 end

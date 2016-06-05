@@ -1,3 +1,5 @@
+/*eslint-disable*/
+// jshint ignore: start
 /** <% import PhoenixJsrouter %>
  * DO NOT MODIFY!
  * This file was automatically generated and will be overwritten in the next build

@@ -1,19 +1,5 @@
 defmodule PhoenixJsrouter do
 
-  # {assigns: %{}, helper: "registration", host: nil,
-  # kind: :match, opts: :create, path: "/api/registration", pipe_through: [:api],
-  # plug: SystextilDDP.RegistrationController, private: %{}, verb: :post}
-
-  def __routes__ do
-    [
-      %{helper: "user", opts: :create, path: "/users"},
-      %{helper: "user", opts: :update, path: "/users/:id"},
-      %{helper: "user_friends", opts: :create, path: "/users/:user_id/friends"},
-      %{helper: "user_friends", opts: :update, path: "/users/:user_id/friends/:id"},
-      %{helper: "user_friends", opts: :delete, path: "/users/:user_id/friends/:id"}
-    ]
-  end
-
   def function_name(%{helper: helper, opts: opts}) do
     "#{helper}_#{opts}" |> Mix.Utils.camelize |> downcase_first
   end
@@ -37,4 +23,18 @@ defmodule PhoenixJsrouter do
 
   defp to_url_part(<<"/:", rest :: binary>>), do: "'/' + #{rest}"
   defp to_url_part(path_part), do: "'#{path_part}'"
+
+  # just for tests, so we can run the task in this project.
+  # Should go away in the future
+  defmodule Router do
+    def __routes__ do
+      [
+        %{helper: "user", opts: :create, path: "/users"},
+        %{helper: "user", opts: :update, path: "/users/:id"},
+        %{helper: "user_friends", opts: :create, path: "/users/:user_id/friends"},
+        %{helper: "user_friends", opts: :update, path: "/users/:user_id/friends/:id"},
+        %{helper: "user_friends", opts: :delete, path: "/users/:user_id/friends/:id"}
+      ]
+    end
+  end
 end
