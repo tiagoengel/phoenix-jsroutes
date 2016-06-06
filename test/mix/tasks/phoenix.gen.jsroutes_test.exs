@@ -20,7 +20,7 @@ defmodule Mix.Tasks.Phoenix.Gen.JsroutesTest do
 
   test "generate javascript routes for a specific phoenix router" do
     Mix.Tasks.Phoenix.Gen.Jsroutes.run(["Mix.RouterTest"])
-    assert_file "web/static/js/jsroutes.js", fn file ->
+    assert_contents "web/static/js/jsroutes.js", fn file ->
       assert file =~ "pageIndex() {"
       assert file =~ "return '/';"
 
