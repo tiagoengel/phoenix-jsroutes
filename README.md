@@ -12,7 +12,7 @@ Javascript routing for the phoenix framework.
 - [X] Use the current phoenix application routes to generate the file
 - [ ] Test the task with a real phoenix application
 - [ ] Allow to configure a list of "scopes" to generate the routes only for these scopes
-- [ ] Get the output path from a configuration
+- [X] Get the output path from a configuration
 - [ ] Add instructions on how to make the process automatically
 - [ ] Add support to umbrella applications
 - [ ] Get the template from a configuration
