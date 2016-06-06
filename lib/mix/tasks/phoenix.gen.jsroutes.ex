@@ -12,7 +12,9 @@ defmodule Mix.Tasks.Phoenix.Gen.Jsroutes do
 
     routes = only_routes_with_helpers(module.__routes__)
     otp_app = Mix.Phoenix.otp_app()
-    path = Application.get_env(otp_app, :jsrouter, Keyword.new) |> Keyword.get(:output_path, @default_path)
+    config = Application.get_env(otp_app, :jsrouter) || Keyword.new
+    path = Keyword.get(config, :output_path, @default_path)
+
     file = "#{path}/jsroutes.js"
 
     File.mkdir_p!(path)
