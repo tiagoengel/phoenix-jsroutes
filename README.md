@@ -15,6 +15,7 @@ Javascript routing for the phoenix framework.
 - [ ] Get the output path from a configuration
 - [ ] Add instructions on how to make the process automatically
 - [ ] Add support to umbrella applications
+- [ ] Get the template from a configuration
 
 ## Contributors
 

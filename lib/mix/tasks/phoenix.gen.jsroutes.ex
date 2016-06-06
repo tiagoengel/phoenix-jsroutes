@@ -2,7 +2,7 @@ defmodule Mix.Tasks.Phoenix.Gen.Jsroutes do
   use Mix.Task
   require EEx
 
-  @default_path "jsroutes.js"
+  @default_path "web/static/js"
 
   def run(args) do
     module = router(args)
@@ -11,9 +11,14 @@ defmodule Mix.Tasks.Phoenix.Gen.Jsroutes do
     end
 
     routes = only_routes_with_helpers(module.__routes__)
+    otp_app = Mix.Phoenix.otp_app()
+    path = Application.get_env(otp_app, :jsrouter, Keyword.new) |> Keyword.get(:output_path, @default_path)
+    file = "#{path}/jsroutes.js"
 
-    File.write!(@default_path, gen_routes(routes))
-    Mix.Shell.IO.info "Generated #{@default_path}"
+    File.mkdir_p!(path)
+
+    File.write!(file, gen_routes(routes))
+    Mix.Shell.IO.info("Generated #{file}")
   end
 
   EEx.function_from_file :defp, :gen_routes, "priv/templates/jsroutes.exs", [:routes]

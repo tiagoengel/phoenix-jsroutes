@@ -10,7 +10,7 @@ defmodule Mix.Tasks.Phoenix.Gen.JsroutesTest do
   import TestHelper
 
   setup do
-    File.rm("jsroutes.js")
+    File.rm_rf("web/")
     :ok
   end
 
@@ -20,13 +20,21 @@ defmodule Mix.Tasks.Phoenix.Gen.JsroutesTest do
 
   test "generate javascript routes for a specific phoenix router" do
     Mix.Tasks.Phoenix.Gen.Jsroutes.run(["Mix.RouterTest"])
-    assert_file "jsroutes.js", fn file ->
+    assert_file "web/static/js/jsroutes.js", fn file ->
       assert file =~ "pageIndex() {"
       assert file =~ "return '/';"
 
       assert file =~ "userUpdate(id) {"
       assert file =~ "return '/users/' + id;"
     end
+  end
+
+  test "allow to configure the output path" do
+    Application.put_env(:phoenix_jsrouter, :jsrouter, output_path: "_build/test/tmp")
+    Mix.Tasks.Phoenix.Gen.Jsroutes.run(["Mix.RouterTest"])
+    Application.put_env(:phoenix_jsrouter, :jsrouter, nil)
+    assert_file "_build/test/tmp/jsroutes.js"
+    File.rm("_build/test/tmp/jsroutes.js")
   end
 
 
