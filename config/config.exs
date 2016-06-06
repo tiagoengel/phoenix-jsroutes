@@ -29,3 +29,4 @@ config :phoenix_jsrouter, module: PhoenixJsrouter
 #
 #     import_config "#{Mix.env}.exs"
 #
+config :execjs, runtime: Execjs.Runtimes.Node

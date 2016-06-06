@@ -18,19 +18,23 @@ defmodule Mix.Tasks.Phoenix.Gen.JsroutesTest do
     :ok
   end
 
-  test "gen_routes generates a valid javascript module" do
+  test "generates a valid javascript module" do
+    run_with_env([output_folder: "/tmp"], fn ->
+      Mix.Tasks.Phoenix.Gen.Jsroutes.run(["Mix.RouterTest"])
+      assert_file "/tmp/jsroutes.js"
 
-  end
+      jsroutes = Execjs.compile("var routes = require('./jsroutes')")
+      assert call_js(jsroutes, "routes.userIndex", []) == "/users"
+      assert call_js(jsroutes, "routes.userCreate", []) == "/users"
+      assert call_js(jsroutes, "routes.userUpdate", [1]) == "/users/1"
+      assert call_js(jsroutes, "routes.userDelete", [1]) == "/users/1"
+      assert call_js(jsroutes, "routes.userEdit", [1]) == "/users/1/edit"
 
-  test "generate javascript routes for a specific phoenix router" do
-    Mix.Tasks.Phoenix.Gen.Jsroutes.run(["Mix.RouterTest"])
-    assert_contents "web/static/js/jsroutes.js", fn file ->
-      assert file =~ "pageIndex() {"
-      assert file =~ "return '/';"
+      assert call_js(jsroutes, "routes.productIndex", []) == "/api/products"
+      assert call_js(jsroutes, "routes.orderUpdate", [1]) == "/api/orders/1"
 
-      assert file =~ "userUpdate(id) {"
-      assert file =~ "return '/users/' + id;"
-    end
+      File.rm("/tmp/jsroutes.js")
+    end)
   end
 
   test "allows to configure the output path" do
@@ -66,5 +70,7 @@ defmodule Mix.Tasks.Phoenix.Gen.JsroutesTest do
     end
   end
 
-
+  defp call_js(context, fun, args) do
+    Execjs.call(context, fun, args)
+  end
 end
