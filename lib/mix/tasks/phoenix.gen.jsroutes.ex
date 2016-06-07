@@ -48,13 +48,13 @@ defmodule Mix.Tasks.Phoenix.Gen.Jsroutes do
  # the same for us right now, so we will ignore the ones that don't have a helper
  defp route_has_helper?(%{helper: helper}), do: !is_nil(helper)
 
- defp match_filter?(route, nil), do: true
+ defp match_filter?(_route, nil), do: true
  defp match_filter?(%{path: path}, regex), do: Regex.match?(regex, path)
 
  @output_folder "web/static/js"
 
  defp config do
-   otp_app = Mix.Phoenix.otp_app()
+   otp_app = Mix.Project.config[:app]
    config = Application.get_env(otp_app, :jsrouter) || Keyword.new
    %{
      output_folder: Keyword.get(config, :output_folder, @output_folder),
