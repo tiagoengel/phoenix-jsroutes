@@ -37,6 +37,15 @@ defmodule Mix.Tasks.Phoenix.Gen.JsroutesTest do
     end)
   end
 
+  test "ignore the first argument when it is not a valid module name" do
+    Mix.Tasks.Phoenix.Gen.Jsroutes.run(["--no-halt"])
+    Mix.Tasks.Phoenix.Gen.Jsroutes.run(["-arg"])
+    Mix.Tasks.Phoenix.Gen.Jsroutes.run([])
+    assert_raise(Mix.Error, "module Elixir.NotFound was not loaded and cannot be loaded", fn -> 
+      Mix.Tasks.Phoenix.Gen.Jsroutes.run(["NotFound"])
+    end)
+  end
+
   test "allows to configure the output path" do
     run_with_env([output_folder: "_build/test/tmp"], fn ->
       Mix.Tasks.Phoenix.Gen.Jsroutes.run(["Mix.RouterTest"])

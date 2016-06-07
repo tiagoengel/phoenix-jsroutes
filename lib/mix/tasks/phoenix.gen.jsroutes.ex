@@ -22,7 +22,7 @@ defmodule Mix.Tasks.Phoenix.Gen.Jsroutes do
      # TODO: Suport umbrella applications
      Mix.Project.umbrella? ->
        Mix.raise "Umbrella applications are not supported"
-     router = Enum.at(args, 0) ->
+     router = parse_args(args) ->
        Module.concat("Elixir", router)
      true ->
        Module.concat(Mix.Phoenix.base(), "Router")
@@ -31,6 +31,12 @@ defmodule Mix.Tasks.Phoenix.Gen.Jsroutes do
      raise_module_not_found module
    end
    module
+ end
+
+ # TODO: add a better validation
+ defp parse_args(args) do
+   module = Enum.at(args, 0)
+   if String.starts_with?(module || "-", "-"), do: nil, else: module
  end
 
  defp routes(router, filter) do
