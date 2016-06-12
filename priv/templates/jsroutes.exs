@@ -20,7 +20,7 @@
      };
      global[name] = theModule;
    }
- })('jsrouter', function () {
+ })('PhoenixJsRoutes', function () {
    return { <%= for route <- routes do %>
      <% fn_name = function_name(route) %>
      <%= fn_name %>: function <%= fn_name %>(<%= function_params(route) %>) {

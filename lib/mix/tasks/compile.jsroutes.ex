@@ -12,12 +12,11 @@ defmodule Mix.Tasks.Compile.Jsroutes do
   @spec run(OptionParser.argv) :: :ok | :noop
   def run(args) do
     {task_opts, _, _} = OptionParser.parse(args, switches: [force: :boolean])
-
-    app = Mix.Project.config[:app]
-    app_env = Application.get_env(app, :jsroutes) || Keyword.new
+    app               = Mix.Project.config[:app]
+    app_env           = Application.get_env(app, :jsroutes) || Keyword.new
+    output_folder     = Keyword.get(app_env, :output_folder, @default_out_folder)
 
     module = router(app, args)
-    output_folder = Keyword.get(app_env, :output_folder, @default_out_folder)
     file = Path.join(output_folder, @default_out_file)
     mappings = [{module, file}]
 
