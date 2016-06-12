@@ -44,7 +44,7 @@ defmodule Mix.Compilers.Phoenix.JsRoutes do
     compile(manifest, entries, stale, entries_to_remove, files_to_remove, callback)
   end
 
-  def compile(manifest, entries, stale, entries_to_remove, files_to_remove, callback) do
+  defp compile(manifest, entries, stale, entries_to_remove, files_to_remove, callback) do
     if stale == [] && entries_to_remove == [] && files_to_remove == [] do
       :noop
     else
@@ -73,6 +73,14 @@ defmodule Mix.Compilers.Phoenix.JsRoutes do
      :ok
 
     end
+  end
+
+  @doc """
+  Cleans up compilation artifacts.
+  """
+  def clean(manifest) do
+    read_manifest(manifest)
+    |> Enum.each(fn {_, _, output} -> File.rm(output) end)
   end
 
   defp stale?(_, {nil, nil, nil}), do: true

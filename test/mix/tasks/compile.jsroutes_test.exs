@@ -72,6 +72,13 @@ defmodule Mix.Tasks.Compile.JsroutesTest do
     end)
   end
 
+  test "clean up compilation artifacts" do
+    Mix.Tasks.Compile.Jsroutes.run([])
+    assert_file "web/static/js/phoenix-jsroutes.js"
+    Mix.Tasks.Compile.Jsroutes.clean()
+    refute_file "web/static/js/phoenix-jsroutes.js"
+  end
+
   defp run_with_env(env, fun) do
     try do
       Application.put_env(:phoenix_jsroutes, :jsroutes, env)

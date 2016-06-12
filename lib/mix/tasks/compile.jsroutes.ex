@@ -8,6 +8,7 @@ defmodule Mix.Tasks.Compile.Jsroutes do
   @default_out_folder "web/static/js"
   @default_out_file "phoenix-jsroutes.js"
 
+
   @spec run(OptionParser.argv) :: :ok | :noop
   def run(args) do
     {task_opts, _, _} = OptionParser.parse(args, switches: [force: :boolean])
@@ -20,8 +21,6 @@ defmodule Mix.Tasks.Compile.Jsroutes do
     file = Path.join(output_folder, @default_out_file)
     mappings = [{module, file}]
 
-    manifest = Path.join(Mix.Project.manifest_path, @manifest)
-
     Mix.Compilers.Phoenix.JsRoutes.compile(manifest, mappings, task_opts[:force], fn
       module, output ->
         routes = routes(module, app_env)
@@ -29,6 +28,15 @@ defmodule Mix.Tasks.Compile.Jsroutes do
         File.write(output, gen_routes(routes))
     end)
   end
+
+  @doc """
+  Cleans up compilation artifacts.
+  """
+  def clean do
+    Mix.Compilers.Phoenix.JsRoutes.clean(manifest())
+  end
+
+  defp manifest, do: Path.join(Mix.Project.manifest_path, @manifest)
 
   EEx.function_from_file :defp, :gen_routes, "priv/templates/jsroutes.exs", [:routes]
 
