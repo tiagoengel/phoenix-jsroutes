@@ -49,7 +49,7 @@ defmodule Mix.Tasks.Compile.Jsroutes do
      true ->
        Module.concat(base(app), "Router")
    end
-   unless Code.ensure_compiled?(module) do
+   unless Code.ensure_loaded?(module) do
      raise_module_not_found module
    end
    module
@@ -84,13 +84,15 @@ end
  # the same for us right now, so we will ignore the ones that don't have a helper
  defp route_has_helper?(%{helper: helper}), do: !is_nil(helper)
 
- defp match_filters?(%{path: path}, [include: include]),
-  do: Regex.match?(include, path)
- defp match_filters?(%{path: path}, [exclude: exclude]),
-  do: !Regex.match?(exclude, path)
- defp match_filters?(%{path: path}, [include: include, exclude: exclude]),
-  do: Regex.match?(include, path) && !Regex.match?(exclude, path)
- defp match_filters?(_route, _), do: true
+ defp match_filters?(%{path: path}, config) do
+   include = Keyword.get(config, :include)
+   exclude = Keyword.get(config, :exclude)
+
+   match_include = !include || Regex.match?(include, path)
+   match_exclude = !exclude || !Regex.match?(exclude, path)
+
+   match_include && match_exclude
+ end
 
  defp raise_module_not_found(module) do
    Mix.raise "module #{module} was not loaded and cannot be loaded"

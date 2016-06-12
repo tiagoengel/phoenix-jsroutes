@@ -10,13 +10,18 @@ defmodule Mix.RouterTest do
 end
 
 defmodule Mix.Tasks.Compile.JsroutesTest do
-  use ExUnit.Case
+  use ExUnit.Case, async: false
+  use TestFolderSupport
 
   import TestHelper
 
-  setup do
-    File.rm_rf("web/")
-    :ok
+
+  @tag :clean_folder
+  test "allows to configure the output path", %{folder: folder} do
+    run_with_env([output_folder: folder], fn ->
+      Mix.Tasks.Compile.Jsroutes.run(["Mix.RouterTest"])
+      assert_file path(folder, "phoenix-jsroutes.js")
+    end)
   end
 
   test "generates a valid javascript module" do
@@ -38,27 +43,24 @@ defmodule Mix.Tasks.Compile.JsroutesTest do
     end)
   end
 
-  test "ignore the first argument when it is not a valid module name" do
-    Mix.Tasks.Compile.Jsroutes.run(["--no-halt"])
-    Mix.Tasks.Compile.Jsroutes.run(["-arg"])
-    Mix.Tasks.Compile.Jsroutes.run([])
-    assert_raise(Mix.Error, "module Elixir.NotFound was not loaded and cannot be loaded", fn ->
-      Mix.Tasks.Compile.Jsroutes.run(["NotFound"])
+  @tag :clean_folder
+  test "ignore the first argument when it is not a valid module name", %{folder: folder} do
+    run_with_env([output_folder: folder], fn ->
+      Mix.Tasks.Compile.Jsroutes.run(["--no-halt"])
+      Mix.Tasks.Compile.Jsroutes.run(["-arg"])
+      Mix.Tasks.Compile.Jsroutes.run([])
+      assert_raise(Mix.Error, "module Elixir.NotFound was not loaded and cannot be loaded", fn ->
+        Mix.Tasks.Compile.Jsroutes.run(["NotFound"])
+      end)
     end)
   end
 
-  test "allows to configure the output path" do
-    run_with_env([output_folder: "_build/test/tmp"], fn ->
-      Mix.Tasks.Compile.Jsroutes.run(["Mix.RouterTest"])
-      assert_file "_build/test/tmp/phoenix-jsroutes.js"
-      File.rm("_build/test/tmp/phoenix-jsroutes.js")
-    end)
-  end
 
-  test "allows to filter urls" do
-    run_with_env([include: ~r[api/], exclude: ~r[/admin]], fn ->
+  @tag :clean_folder
+  test "allows to filter urls", %{folder: folder}  do
+    run_with_env([output_folder: folder, include: ~r[api/], exclude: ~r[/admin]], fn ->
       Mix.Tasks.Compile.Jsroutes.run(["Mix.RouterTest"])
-      assert_contents "web/static/js/phoenix-jsroutes.js", fn file ->
+      assert_contents path(folder, "phoenix-jsroutes.js"), fn file ->
         refute file =~ "page"
         refute file =~ "user"
         refute file =~ "admin"
@@ -72,11 +74,14 @@ defmodule Mix.Tasks.Compile.JsroutesTest do
     end)
   end
 
-  test "clean up compilation artifacts" do
-    Mix.Tasks.Compile.Jsroutes.run([])
-    assert_file "web/static/js/phoenix-jsroutes.js"
-    Mix.Tasks.Compile.Jsroutes.clean()
-    refute_file "web/static/js/phoenix-jsroutes.js"
+  @tag :clean_folder
+  test "clean up compilation artifacts", %{folder: folder} do
+    run_with_env([output_folder: folder], fn ->
+      Mix.Tasks.Compile.Jsroutes.run(["Mix.RouterTest"])
+      assert_file path(folder, "phoenix-jsroutes.js")
+      Mix.Tasks.Compile.Jsroutes.clean()
+      refute_file path(folder, "phoenix-jsroutes.js")
+    end)
   end
 
   defp run_with_env(env, fun) do

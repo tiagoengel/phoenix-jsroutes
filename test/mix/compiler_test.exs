@@ -9,7 +9,9 @@ defmodule Mix.Compilers.Phoenix.JsRoutes.RouterTest  do
 end
 
 defmodule Mix.Compilers.Phoenix.JsRoutesTest do
-  use ExUnit.Case
+  use ExUnit.Case, async: false
+  use TestFolderSupport
+
   import TestHelper
 
   alias Mix.Compilers.Phoenix.JsRoutes.RouterTest
@@ -17,34 +19,36 @@ defmodule Mix.Compilers.Phoenix.JsRoutesTest do
   @manifest "_build/test/lib/phoenix_jsroutes/compile.jsroutes"
 
   setup do
-    File.mkdir_p!("web/static/js")
     on_exit fn ->
       File.rm(@manifest)
-      File.rm_rf("web/static/js")
     end
   end
 
-  test "fires the callback and writes the manifest" do
-    assert :ok = compile({RouterTest, "web/static/js/teste-routes.js"})
+  @tag :clean_folder
+  test "fires the callback and writes the manifest", %{folder: folder} do
+    assert :ok = compile({RouterTest, Path.join(folder, "teste-routes.js")})
     assert_file @manifest
   end
 
-  test "return :noop when there's no change" do
-    assert :ok = compile({RouterTest, "web/static/js/teste-routes.js"})
-    assert :noop = compile({RouterTest, "web/static/js/teste-routes.js"})
+  @tag :clean_folder
+  test "return :noop when there's no change", %{folder: folder} do
+    assert :ok = compile({RouterTest, path(folder, "teste-routes.js")})
+    assert :noop = compile({RouterTest, path(folder, "teste-routes.js")})
   end
 
-  test "fires again when the module code changes" do
-    assert :ok = compile({RouterTest, "web/static/js/teste-routes.js"})
+  @tag :clean_folder
+  test "fires again when the module code changes", %{folder: folder} do
+    assert :ok = compile({RouterTest, path(folder, "teste-routes.js")})
     redefine_module!
-    assert :ok = compile({RouterTest, "web/static/js/teste-routes.js"})
+    assert :ok = compile({RouterTest, path(folder, "teste-routes.js")})
   end
 
-  test "fires the callback for every module in the mappings" do
+  @tag :clean_folder
+  test "fires the callback for every module in the mappings", %{folder: folder} do
     mappings = [
-      {RouterTest, "web/static/js/teste-routes.js"},
-      {Elixir.Atom, "web/static/js/atom.js"},
-      {Elixir.Agent, "web/static/js/agent.js"}
+      {RouterTest, path(folder, "teste-routes.js")},
+      {Elixir.Atom, path(folder, "atom.js")},
+      {Elixir.Agent, path(folder, "agent.js")}
     ]
     {:ok, agent} = Agent.start_link(fn -> 0 end)
     assert :ok = Mix.Compilers.Phoenix.JsRoutes.compile(@manifest, mappings, false, fn (module, output) ->
@@ -58,42 +62,49 @@ defmodule Mix.Compilers.Phoenix.JsRoutesTest do
     Agent.stop(agent)
   end
 
-  test "keeps the manifest up to date" do
-    assert :ok = compile({RouterTest, "web/static/js/teste-routes.js"})
+  @tag :clean_folder
+  test "keeps the manifest up to date", %{folder: folder} do
+    assert :ok = compile({RouterTest, path(folder, "teste-routes.js")})
     redefine_module!
-    assert :ok = compile({RouterTest, "web/static/js/teste-routes.js"})
+    assert :ok = compile({RouterTest, path(folder, "teste-routes.js")})
     entries = Mix.Compilers.Phoenix.JsRoutes.read_manifest(@manifest)
     assert length(entries) == 1
     new_hash = RouterTest.module_info[:md5]
-    assert {RouterTest, ^new_hash, "web/static/js/teste-routes.js"} = Enum.fetch!(entries, 0)
+    expected_path = path(folder, "teste-routes.js")
+    assert {RouterTest, ^new_hash, ^expected_path} = Enum.fetch!(entries, 0)
   end
 
-  test "remove outputs that are not in the mappings anymore" do
-    assert :ok = compile({RouterTest, "web/static/js/teste-routes.js"})
-    assert :ok = compile({RouterTest, "web/static/js/teste-routes-new.js"})
-    refute_file "web/static/js/teste-routes.js"
+  @tag :clean_folder
+  test "remove outputs that are not in the mappings anymore", %{folder: folder} do
+    assert :ok = compile({RouterTest, path(folder, "teste-routes.js")})
+    assert :ok = compile({RouterTest, path(folder, "teste-routes-new.js")})
+    refute_file path(folder, "teste-routes.js")
     entries = Mix.Compilers.Phoenix.JsRoutes.read_manifest(@manifest)
     assert length(entries) == 1
-    assert {RouterTest, _, "web/static/js/teste-routes-new.js"} = Enum.fetch!(entries, 0)
+    expected_path = path(folder, "teste-routes-new.js")
+    assert {RouterTest, _, ^expected_path} = Enum.fetch!(entries, 0)
   end
 
-  test "remove modules that are not in the mappings anymore" do
-    assert :ok = compile({RouterTest, "web/static/js/teste-routes.js"})
-    assert :ok = compile({Elixir.Agent, "web/static/js/agent.js"})
-    refute_file "web/static/js/teste-routes.js"
+  @tag :clean_folder
+  test "remove modules that are not in the mappings anymore", %{folder: folder} do
+    assert :ok = compile({RouterTest, path(folder, "teste-routes.js")})
+    assert :ok = compile({Elixir.Agent, path(folder, "agent.js")})
+    refute_file path(folder, "teste-routes.js")
     entries = Mix.Compilers.Phoenix.JsRoutes.read_manifest(@manifest)
     assert length(entries) == 1
-    assert {Elixir.Agent, _, "web/static/js/agent.js"} = Enum.fetch!(entries, 0)
+    expected_path = path(folder, "agent.js")
+    assert {Elixir.Agent, _, ^expected_path} = Enum.fetch!(entries, 0)
   end
 
-  test "clean up compilation artifacts" do
+  @tag :clean_folder
+  test "clean up compilation artifacts", %{folder: folder} do
     assert :ok = compile([
-      {RouterTest, "web/static/js/teste-routes.js"},
-      {Elixir.Agent, "web/static/js/agent.js"}
+      {RouterTest, path(folder, "teste-routes.js")},
+      {Elixir.Agent, path(folder, "agent.js")}
     ])
     Mix.Compilers.Phoenix.JsRoutes.clean(@manifest)
-    refute_file "web/static/js/teste-routes.js"
-    refute_file "web/static/js/agent.js"
+    refute_file path(folder, "teste-routes.js")
+    refute_file path(folder, "agent.js")
   end
 
   defp compile(mapping = {_, _}), do: compile([mapping])
@@ -107,13 +118,8 @@ defmodule Mix.Compilers.Phoenix.JsRoutesTest do
     Code.compile_quoted(quote do
       defmodule Mix.Compilers.Phoenix.JsRoutes.RouterTest do
         # Always define a new function name to force the module's hash to change
-        def unquote(:"a_#{system_time}")(), do: "test"
+        def unquote(:"a_#{unique_id}")(), do: "test"
       end
     end)
-  end
-
-  defp system_time do
-    {mega, seconds, ms} = :os.timestamp()
-    (mega*1000000 + seconds)*1000 + :erlang.round(ms/1000)
   end
 end

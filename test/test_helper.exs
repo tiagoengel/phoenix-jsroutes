@@ -36,6 +36,34 @@ defmodule TestHelper do
     refute File.regular?(file), "Expected #{file} to not exist, but it does"
   end
 
+  def unique_id do
+    {mega, seconds, ms} = :os.timestamp()
+    (mega*1000000 + seconds)*1000 + :erlang.round(ms/1000)
+  end
+
+  def path(folder, name) do
+    Path.join(folder, name)
+  end
+
+end
+
+# Creates a unique folder for every test to avoid
+# that the result of one test afects another
+defmodule TestFolderSupport do
+  use ExUnit.CaseTemplate
+
+  setup tags do
+    if tags[:clean_folder] do
+      folder = "tmp/#{TestHelper.unique_id}"
+      File.mkdir_p(folder)
+      on_exit fn ->
+        File.rm_rf(folder)
+      end
+      {:ok, folder: folder}
+    else
+      :ok
+    end
+  end
 end
 
 # Get Mix output sent to the current
