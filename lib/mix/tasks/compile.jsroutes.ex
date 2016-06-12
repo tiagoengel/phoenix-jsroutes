@@ -6,7 +6,7 @@ defmodule Mix.Tasks.Compile.Jsroutes do
   @manifest ".compile.jsroutes"
 
   @default_out_folder "web/static/js"
-  @default_out_file "jsroutes.js"
+  @default_out_file "phoenix-jsroutes.js"
 
   @spec run(OptionParser.argv) :: :ok | :noop
   def run(args) do

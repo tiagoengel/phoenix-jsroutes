@@ -22,9 +22,9 @@ defmodule Mix.Tasks.Compile.JsroutesTest do
   test "generates a valid javascript module" do
     run_with_env([output_folder: "/tmp"], fn ->
       Mix.Tasks.Compile.Jsroutes.run(["Mix.RouterTest"])
-      assert_file "/tmp/jsroutes.js"
+      assert_file "/tmp/phoenix-jsroutes.js"
 
-      jsroutes = Execjs.compile("var routes = require('./jsroutes')")
+      jsroutes = Execjs.compile("var routes = require('./phoenix-jsroutes')")
       assert call_js(jsroutes, "routes.userIndex", []) == "/users"
       assert call_js(jsroutes, "routes.userCreate", []) == "/users"
       assert call_js(jsroutes, "routes.userUpdate", [1]) == "/users/1"
@@ -34,7 +34,7 @@ defmodule Mix.Tasks.Compile.JsroutesTest do
       assert call_js(jsroutes, "routes.productIndex", []) == "/api/products"
       assert call_js(jsroutes, "routes.orderUpdate", [1]) == "/api/orders/1"
 
-      File.rm("/tmp/jsroutes.js")
+      File.rm("/tmp/phoenix-jsroutes.js")
     end)
   end
 
@@ -50,15 +50,15 @@ defmodule Mix.Tasks.Compile.JsroutesTest do
   test "allows to configure the output path" do
     run_with_env([output_folder: "_build/test/tmp"], fn ->
       Mix.Tasks.Compile.Jsroutes.run(["Mix.RouterTest"])
-      assert_file "_build/test/tmp/jsroutes.js"
-      File.rm("_build/test/tmp/jsroutes.js")
+      assert_file "_build/test/tmp/phoenix-jsroutes.js"
+      File.rm("_build/test/tmp/phoenix-jsroutes.js")
     end)
   end
 
   test "allows to filter urls" do
     run_with_env([include: ~r[api/], exclude: ~r[/admin]], fn ->
       Mix.Tasks.Compile.Jsroutes.run(["Mix.RouterTest"])
-      assert_contents "web/static/js/jsroutes.js", fn file ->
+      assert_contents "web/static/js/phoenix-jsroutes.js", fn file ->
         refute file =~ "page"
         refute file =~ "user"
         refute file =~ "admin"
