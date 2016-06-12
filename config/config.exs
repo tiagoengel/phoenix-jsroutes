@@ -10,7 +10,7 @@ use Mix.Config
 
 # You can configure for your application as:
 #
-config :phoenix_jsrouter, module: PhoenixJsrouter
+config :phoenix_jsroutes, module: PhoenixJsroutes
 #
 # And access this configuration in your application as:
 #

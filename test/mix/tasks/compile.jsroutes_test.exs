@@ -5,10 +5,11 @@ defmodule Mix.RouterTest do
   scope "/api" do
     get "/products", ProductController, :index
     put "/orders/:id", OrderController, :update
+    resources "/admin", AdminController
   end
 end
 
-defmodule Mix.Tasks.Phoenix.Gen.JsroutesTest do
+defmodule Mix.Tasks.Compile.JsroutesTest do
   use ExUnit.Case
 
   import TestHelper
@@ -20,7 +21,7 @@ defmodule Mix.Tasks.Phoenix.Gen.JsroutesTest do
 
   test "generates a valid javascript module" do
     run_with_env([output_folder: "/tmp"], fn ->
-      Mix.Tasks.Phoenix.Gen.Jsroutes.run(["Mix.RouterTest"])
+      Mix.Tasks.Compile.Jsroutes.run(["Mix.RouterTest"])
       assert_file "/tmp/jsroutes.js"
 
       jsroutes = Execjs.compile("var routes = require('./jsroutes')")
@@ -38,28 +39,29 @@ defmodule Mix.Tasks.Phoenix.Gen.JsroutesTest do
   end
 
   test "ignore the first argument when it is not a valid module name" do
-    Mix.Tasks.Phoenix.Gen.Jsroutes.run(["--no-halt"])
-    Mix.Tasks.Phoenix.Gen.Jsroutes.run(["-arg"])
-    Mix.Tasks.Phoenix.Gen.Jsroutes.run([])
-    assert_raise(Mix.Error, "module Elixir.NotFound was not loaded and cannot be loaded", fn -> 
-      Mix.Tasks.Phoenix.Gen.Jsroutes.run(["NotFound"])
+    Mix.Tasks.Compile.Jsroutes.run(["--no-halt"])
+    Mix.Tasks.Compile.Jsroutes.run(["-arg"])
+    Mix.Tasks.Compile.Jsroutes.run([])
+    assert_raise(Mix.Error, "module Elixir.NotFound was not loaded and cannot be loaded", fn ->
+      Mix.Tasks.Compile.Jsroutes.run(["NotFound"])
     end)
   end
 
   test "allows to configure the output path" do
     run_with_env([output_folder: "_build/test/tmp"], fn ->
-      Mix.Tasks.Phoenix.Gen.Jsroutes.run(["Mix.RouterTest"])
+      Mix.Tasks.Compile.Jsroutes.run(["Mix.RouterTest"])
       assert_file "_build/test/tmp/jsroutes.js"
       File.rm("_build/test/tmp/jsroutes.js")
     end)
   end
 
   test "allows to filter urls" do
-    run_with_env([url_filter: ~r[api/]], fn ->
-      Mix.Tasks.Phoenix.Gen.Jsroutes.run(["Mix.RouterTest"])
+    run_with_env([include: ~r[api/], exclude: ~r[/admin]], fn ->
+      Mix.Tasks.Compile.Jsroutes.run(["Mix.RouterTest"])
       assert_contents "web/static/js/jsroutes.js", fn file ->
         refute file =~ "page"
         refute file =~ "user"
+        refute file =~ "admin"
 
         assert file =~ "productIndex() {"
         assert file =~ "return '/api/products';"
@@ -72,10 +74,10 @@ defmodule Mix.Tasks.Phoenix.Gen.JsroutesTest do
 
   defp run_with_env(env, fun) do
     try do
-      Application.put_env(:phoenix_jsrouter, :jsrouter, env)
+      Application.put_env(:phoenix_jsroutes, :jsroutes, env)
       fun.()
     after
-      Application.put_env(:phoenix_jsrouter, :jsrouter, nil)
+      Application.put_env(:phoenix_jsroutes, :jsroutes, nil)
     end
   end
 

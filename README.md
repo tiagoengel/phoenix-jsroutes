@@ -1,4 +1,4 @@
-# PhoenixJsrouter
+# PhoenixJsroutes
 
 ![build](https://travis-ci.org/tiagoengel/phoenix-jsroutes.svg?branch=master)
 

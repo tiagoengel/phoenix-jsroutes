@@ -1,8 +1,8 @@
-defmodule PhoenixJsrouter.Mixfile do
+defmodule PhoenixJsroutes.Mixfile do
   use Mix.Project
 
   def project do
-    [app: :phoenix_jsrouter,
+    [app: :phoenix_jsroutes,
      version: "0.0.1",
      elixir: "~> 1.2",
      build_embedded: Mix.env == :prod,
@@ -27,7 +27,7 @@ defmodule PhoenixJsrouter.Mixfile do
   #
   # Type "mix help deps" for more examples and options
   defp deps do
-    [{:phoenix, ">= 1.0.0"},
+    [{:phoenix, ">= 1.0.0", only: :test},
      {:execjs, "~> 1.1.3", only: :test}]
   end
 

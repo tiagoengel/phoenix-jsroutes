@@ -1,8 +1,8 @@
-defmodule PhoenixJsrouterTest do
+defmodule PhoenixJsroutesTest do
   use ExUnit.Case
-  doctest PhoenixJsrouter
+  doctest PhoenixJsroutes
 
-  import PhoenixJsrouter
+  import PhoenixJsroutes
 
   test "function_name returns the camelized js function name" do
     assert function_name(%{helper: "user", opts: :create}) == "userCreate"

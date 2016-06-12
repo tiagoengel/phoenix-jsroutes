@@ -1,6 +1,6 @@
 /*eslint-disable*/
 // jshint ignore: start
-/** <% import PhoenixJsrouter %>
+/** <% import PhoenixJsroutes %>
  * DO NOT MODIFY!
  * This file was automatically generated and will be overwritten in the next build
  * <% {year, month, day} = :erlang.date %> <% {hour, minutes, seconds} = :erlang.time %>

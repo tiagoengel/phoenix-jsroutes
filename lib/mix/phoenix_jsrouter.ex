@@ -1,4 +1,4 @@
-defmodule PhoenixJsrouter do
+defmodule PhoenixJsroutes do
 
   def function_name(%{helper: helper, opts: opts}) do
     "#{helper}_#{opts}" |> Mix.Utils.camelize |> downcase_first
@@ -16,7 +16,7 @@ defmodule PhoenixJsrouter do
   end
 
   def function_body(%{path: path}) do
-    PhoenixJsrouter.UrlTransformer.to_js(path)
+    PhoenixJsroutes.UrlTransformer.to_js(path)
   end
 
   # just for tests, so we can run the task in this project.
