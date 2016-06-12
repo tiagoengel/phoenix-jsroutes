@@ -37,6 +37,12 @@ defmodule Mix.Compilers.Phoenix.JsRoutesTest do
   end
 
   @tag :clean_folder
+  test "forces compilation to run", %{folder: folder} do
+    assert :ok = compile({RouterTest, path(folder, "teste-routes.js")})
+    assert :ok = compile({RouterTest, path(folder, "teste-routes.js")}, true)
+  end
+
+  @tag :clean_folder
   test "fires again when the module code changes", %{folder: folder} do
     assert :ok = compile({RouterTest, path(folder, "teste-routes.js")})
     redefine_module!
@@ -106,10 +112,10 @@ defmodule Mix.Compilers.Phoenix.JsRoutesTest do
     refute_file path(folder, "teste-routes.js")
     refute_file path(folder, "agent.js")
   end
-
-  defp compile(mapping = {_, _}), do: compile([mapping])
-  defp compile(mappings) do
-    Mix.Compilers.Phoenix.JsRoutes.compile(@manifest, mappings, false, fn (module, out) ->
+  defp compile(mappings, force \\ false)
+  defp compile(mapping = {_, _}, force), do: compile([mapping], force)
+  defp compile(mappings, force) do
+    Mix.Compilers.Phoenix.JsRoutes.compile(@manifest, mappings, force, fn (module, out) ->
       File.write(out, module |> to_string)
     end)
   end

@@ -84,6 +84,16 @@ defmodule Mix.Tasks.Compile.JsroutesTest do
     end)
   end
 
+  @tag :clean_folder
+  test "forces compilation", %{folder: folder} do
+    run_with_env([output_folder: folder], fn ->
+      Mix.Tasks.Compile.Jsroutes.run(["Mix.RouterTest"])
+      File.rm(path(folder, "phoenix-jsroutes.js"))
+      Mix.Tasks.Compile.Jsroutes.run(["Mix.RouterTest", "--force"])
+      assert_file path(folder, "phoenix-jsroutes.js")
+    end)
+  end
+
   defp run_with_env(env, fun) do
     try do
       Application.put_env(:phoenix_jsroutes, :jsroutes, env)
