@@ -2,9 +2,23 @@
 
 ![build](https://travis-ci.org/tiagoengel/phoenix-jsroutes.svg?branch=master)
 
-**WORK IN PROGRESS**
+Brings phoenix router helpers to your javascript code.
 
-Javascript routing for the phoenix framework.
+This project consist of a mix compiler task that generates a javascript
+module containing helpers to access your server routes.
+
+# Installation
+
+Add the latest version to your ```mix.exs``` file:
+```elixir
+def deps do
+  [{:phoenix_jsroutes, "~> 0.0.1"}]
+end
+```
+
+# Getting started
+
+
 
 ## TODO
 
@@ -19,5 +33,9 @@ Javascript routing for the phoenix framework.
 
 ## Contributors
 
-| ![marcioj](https://avatars.githubusercontent.com/marcioj?s=100)<br/>[Marcio Junior](https://github.com/marcioj) |![horaciosystem](https://avatars.githubusercontent.com/horaciosystem?s=100)<br/>[Horacio Fernandes](https://github.com/horaciosystem) | ![diogovk](https://avatars.githubusercontent.com/diogovk?s=100)<br/>[Diogo Kersting](https://github.com/diogovk) | [Paulo](https://github.com/paaulo)
-| :---: | :---: | :---: | :----: |
+Special thanks to this guys who helped me starting this project.
+
+<br/>[Marcio Junior](https://github.com/marcioj)
+<br/>[Horacio Fernandes](https://github.com/horaciosystem)
+<br/>[Diogo Kersting](https://github.com/diogovk)
+<br/>[Paulo](https://github.com/paaulo)

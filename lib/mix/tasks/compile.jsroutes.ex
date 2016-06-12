@@ -42,7 +42,7 @@ defmodule Mix.Tasks.Compile.Jsroutes do
      true ->
        Module.concat(base(app), "Router")
    end
-   unless Code.ensure_loaded?(module) do
+   unless Code.ensure_compiled?(module) do
      raise_module_not_found module
    end
    module
