@@ -51,7 +51,8 @@ If you are using the default phoenix configuration with ```brunchjs``` (or any o
 ```javascript
 import routes from './phoenix-jsroutes'
 routes.userIndex(); // /users
-routes.userCreate(1); // /users/1
+routes.userCreate(); // /users
+routes.userUpdate(1); // /users/1
 routes.userFriendsUpdate(1, 2); // /users/1/friends/2
 ```
 
