@@ -55,6 +55,14 @@ routes.userCreate(1); // /users/1
 routes.userFriendsUpdate(1, 2); // /users/1/friends/2
 ```
 
+You can also import only the routes you need
+
+```javascript
+import { userIndex, userUpdate } './phoenix-jsroutes';
+userIndex();
+userUpdate(1);
+```
+
 For AMD builds
 ```javascript
 require(['phoenix-jsroutes'], routes => {

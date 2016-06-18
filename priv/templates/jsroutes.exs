@@ -11,7 +11,12 @@
    if (typeof define === 'function'){
      define(definition);
    } else if (typeof module !== 'undefined' && module.exports) {
-     module.exports = definition();
+     var moduleDef = definition();
+     for (var key in moduleDef) {
+       if (moduleDef.hasOwnProperty(key)) {
+         module.exports[key] = moduleDef[key];
+       }
+     }
    } else {
      var theModule = definition(), global = this, old = global[name];
      theModule.noConflict = function () {
