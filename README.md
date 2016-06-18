@@ -59,7 +59,7 @@ routes.userFriendsUpdate(1, 2); // /users/1/friends/2
 You can also import only the routes you need
 
 ```javascript
-import { userIndex, userUpdate } './phoenix-jsroutes';
+import { userIndex, userUpdate } from './phoenix-jsroutes';
 userIndex();
 userUpdate(1);
 ```
