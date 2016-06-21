@@ -12,7 +12,7 @@ module containing helpers to access your server routes.
 Add the latest version to your ```mix.exs``` file:
 ```elixir
 def deps do
-  [{:phoenix_jsroutes, "~> 0.0.2"}]
+  [{:phoenix_jsroutes, "~> 0.0.3"}]
 end
 ```
 
