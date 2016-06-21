@@ -16,7 +16,7 @@ defmodule Mix.Tasks.Compile.Jsroutes do
     app_env           = Application.get_env(app, :jsroutes) || Keyword.new
     output_folder     = Keyword.get(app_env, :output_folder, @default_out_folder)
 
-    module = router(app, args)
+    module = router(app, task_opts)
     file = Path.join(output_folder, @default_out_file)
     mappings = [{module, file}]
 
@@ -44,7 +44,7 @@ defmodule Mix.Tasks.Compile.Jsroutes do
      # TODO: Suport umbrella applications
      Mix.Project.umbrella? ->
        Mix.raise "Umbrella applications are not supported"
-     router = parse_args(args) ->
+     router = args[:router] ->
        Module.concat("Elixir", router)
      true ->
        Module.concat(base(app), "Router")
@@ -61,12 +61,6 @@ defmodule Mix.Tasks.Compile.Jsroutes do
     mod  -> mod |> inspect
   end
 end
-
- # TODO: add a better validation
- defp parse_args(args) do
-   module = Enum.at(args, 0)
-   if String.starts_with?(module || "-", "-"), do: nil, else: module
- end
 
  defp routes(router, config) do
    unless router.__routes__ do
