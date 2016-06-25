@@ -3,8 +3,6 @@
 /** <% import PhoenixJsroutes %>
  * DO NOT MODIFY!
  * This file was automatically generated and will be overwritten in the next build
- * <% {year, month, day} = :erlang.date %> <% {hour, minutes, seconds} = :erlang.time %>
- * generated on <%= year %>-<%= month %>-<%= day %> <%= hour %>:<%= minutes %>:<%= seconds %>
  */
 
 (function (name, definition){
