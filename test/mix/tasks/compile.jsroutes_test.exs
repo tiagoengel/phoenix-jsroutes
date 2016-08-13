@@ -39,7 +39,7 @@ defmodule Mix.Tasks.Compile.JsroutesTest do
       assert call_js(jsroutes, "routes.productIndex", []) == "/api/products"
       assert call_js(jsroutes, "routes.orderUpdate", [1]) == "/api/orders/1"
 
-      jsroutes = Execjs.compile("var userIndex = require('./phoenix-jsroutes')")
+      Execjs.compile("var userIndex = require('./phoenix-jsroutes')")
 
       File.rm("/tmp/phoenix-jsroutes.js")
     end)

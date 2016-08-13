@@ -112,6 +112,7 @@ defmodule Mix.Compilers.Phoenix.JsRoutesTest do
     refute_file path(folder, "teste-routes.js")
     refute_file path(folder, "agent.js")
   end
+  
   defp compile(mappings, force \\ false)
   defp compile(mapping = {_, _}, force), do: compile([mapping], force)
   defp compile(mappings, force) do
