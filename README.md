@@ -109,7 +109,6 @@ config :my_app, :jsroutes,
 
 ## TODO
 
-- [ ] Integration tests with a real phoenix application
 - [ ] Add a task to print the the functions and its paths, similar to the phoenix.routes task
 - [ ] Add support to umbrella applications
 - [ ] Get the template from a configuration
