@@ -1,5 +1,5 @@
 defmodule JsRoutesExample.IntegrationCase do
-  use ExUnit.CaseTemplate
+  use ExUnit.CaseTemplate, async: false
   use Hound.Helpers
 
   using do

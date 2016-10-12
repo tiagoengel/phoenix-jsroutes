@@ -1,11 +1,15 @@
-import routes from "./phoenix-jsroutes";
-
 let container = document.getElementById('routes-container');
 
+let routes = window.PhoenixJsRoutes;
+
 Object.keys(routes).forEach(routeName => {
+  if (routeName === 'noConflict') return;
   let li = document.createElement('li');
   let routeFn = routes[routeName];
-  let args = Array.from(Array(routeFn.length).keys());
+  let args = [];
+  for (let i = 0; i <= routeFn.length; i++) {
+    args.push(i);
+  }
   li.id = routeName;
 
   let spanName = document.createElement('span');

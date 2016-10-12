@@ -26,6 +26,10 @@ defmodule JsRoutesExample.Router do
     put "test/:name/fixed/:arg", ApiController, :test
   end
 
+  scope "/test", JsRoutesExample do
+    #TEST-PLACEHOLDER#
+  end
+
   # Other scopes may use custom stacks.
   # scope "/api", JsRoutesExample do
   #   pipe_through :api

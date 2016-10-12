@@ -30,7 +30,7 @@ defmodule JsRoutesExample.Mixfile do
   defp deps do
     [{:phoenix, "~> 1.1.4"},
      {:phoenix_html, "~> 2.4"},
-     {:phoenix_live_reload, "~> 1.0", only: :dev},
+     {:phoenix_live_reload, "~> 1.0", only: [:dev, :test]},
      {:gettext, "~> 0.9"},
      {:cowboy, "~> 1.0"},
      {:phoenix_jsroutes, path: "../"},

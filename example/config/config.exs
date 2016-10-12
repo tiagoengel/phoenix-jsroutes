@@ -18,6 +18,9 @@ config :js_routes_example, JsRoutesExample.Endpoint,
   pubsub: [name: JsRoutesExample.PubSub,
            adapter: Phoenix.PubSub.PG2]
 
+config :js_routes_example, :jsroutes,
+  output_folder: "priv/static/js"
+
 # Configures Elixir's Logger
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",
