@@ -10,4 +10,4 @@ addons:
 before_script:
   - phantomjs -w &
 
-script: npm install && mix test && cd example && npm install && WEBDRIVER=phantomjs MIX_ENV=test mix compile && mix test
+script: mix test && cd example && npm install && WEBDRIVER=phantomjs MIX_ENV=test mix compile && mix test
