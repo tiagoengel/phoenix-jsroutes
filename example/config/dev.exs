@@ -11,7 +11,6 @@ config :js_routes_example, JsRoutesExample.Endpoint,
   debug_errors: true,
   code_reloader: true,
   check_origin: false,
-  watchers: [node: ["node_modules/brunch/bin/brunch", "watch", "--stdin"]],
   reloadable_compilers: [:gettext, :phoenix, :elixir, :jsroutes]
 
 # Watch static and templates for browser reloading.

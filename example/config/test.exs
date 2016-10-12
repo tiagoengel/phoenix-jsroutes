@@ -6,8 +6,7 @@ config :js_routes_example, JsRoutesExample.Endpoint,
   http: [port: 4001],
   server: true,
   code_reloader: true,
-  reloadable_compilers: [:gettext, :phoenix, :elixir, :jsroutes],
-  watchers: [node: ["node_modules/brunch/bin/brunch", "watch", "--stdin"]]
+  reloadable_compilers: [:gettext, :phoenix, :elixir, :jsroutes]
 
 # Print only warnings and errors during test
 config :logger, level: :warn
