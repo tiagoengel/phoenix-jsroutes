@@ -107,12 +107,6 @@ config :my_app, :jsroutes,
   exclude: ~r[/admin]
 ```
 
-## TODO
-
-- [ ] Add a task to print the the functions and its paths, similar to the phoenix.routes task
-- [ ] Add support to umbrella applications
-- [ ] Get the template from a configuration
-
 ## Contributing
 
 Contributions are very welcome. If you want to contribute to this project first
