@@ -2,10 +2,9 @@ language: elixir
 elixir:
   - 1.2.2
 
-addons:
-  apt:
-    packages:
-    - nodejs
+install:
+  - curl -sL https://deb.nodesource.com/setup_4.x | sudo -E bash -
+  - sudo apt-get install -y nodejs
 
 before_script:
   - phantomjs -w &
