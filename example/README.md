@@ -4,7 +4,7 @@ Example application to show the phoenix-jsroutes compiler in action and for
 running integration tests.
 
 If you want to use this as base for your project take the configuration with a grain
-of salt. This project have some hacks and configurations that you would not want
+of salt. This project has some hacks and configurations that you would not want
 to use in a normal app. Most of it is due to the travis environment.
 
 # Running
