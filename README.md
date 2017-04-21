@@ -96,8 +96,8 @@ config :my_app, MyApp.Endpoint,
 Key | Type | Default | Description  |
 | --- | --- | --- | --- |
 output_folder | String | web/static/js | Sets the folder used to generate files
-include | Regex | nil | Will include only paths that matches this regex
-exclude | Regex | nil | Will include only paths that doesn't matches this regex
+include | Regex | nil | Will include only routes matching this regex
+exclude | Regex | nil | Will include only routes not matching this regex
 
 Configurations should be added to the key ```:jsroutes``` in your application.
 ```elixir
@@ -114,7 +114,7 @@ open an issue so we can discuss your ideas, if you're confident in implementing 
 
 ## Contributors
 
-Special thanks to this guys who helped me starting this project.
+Special thanks to this guys who have helped me starting this project.
 
 <br/>[Marcio Junior](https://github.com/marcioj)
 <br/>[Horacio Fernandes](https://github.com/horaciosystem)
