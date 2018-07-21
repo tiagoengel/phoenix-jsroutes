@@ -21,25 +21,29 @@ defmodule Mix.Compilers.Phoenix.JsRoutes do
 
   def compile(manifest, mappings, force, callback) do
     entries = read_manifest(manifest)
-    stale = Enum.filter(mappings, fn {module, dest} ->
-      entry = find_manifest_entry(entries, module)
-      force || stale?(module, entry) || output_changed?(dest, entry)
-    end)
+
+    stale =
+      Enum.filter(mappings, fn {module, dest} ->
+        entry = find_manifest_entry(entries, module)
+        force || stale?(module, entry) || output_changed?(dest, entry)
+      end)
 
     # Files to remove are the ones where the output in the mappings is diferent from
     # the output in the entries
-    files_to_remove = Enum.filter(entries, fn {module, _, dest} ->
-      Enum.any?(mappings, fn {mapping_module, mapping_out} ->
-        mapping_module == module && mapping_out != dest
+    files_to_remove =
+      Enum.filter(entries, fn {module, _, dest} ->
+        Enum.any?(mappings, fn {mapping_module, mapping_out} ->
+          mapping_module == module && mapping_out != dest
+        end)
       end)
-    end)
 
     # Entries to remove are the ones that are in the manifest but not in the mappings
-    entries_to_remove = Enum.reject(entries, fn {module, _, _} ->
-      Enum.any?(mappings, fn {mapping_module, _} ->
-        mapping_module == module
+    entries_to_remove =
+      Enum.reject(entries, fn {module, _, _} ->
+        Enum.any?(mappings, fn {mapping_module, _} ->
+          mapping_module == module
+        end)
       end)
-    end)
 
     compile(manifest, entries, stale, entries_to_remove, files_to_remove, callback)
   end
@@ -53,25 +57,29 @@ defmodule Mix.Compilers.Phoenix.JsRoutes do
       Enum.each(entries_to_remove ++ files_to_remove, &File.rm(elem(&1, 2)))
 
       # Compile stale files and print the results
-     results = for {module, output} <- stale do
-       log_result(output, callback.(module, output))
-     end
+      results =
+        for {module, output} <- stale do
+          log_result(output, callback.(module, output))
+        end
 
-     # New entries are the ones in the stale array
-     new? = fn {module, _, _} -> Enum.any?(stale, &elem(&1, 0) == module) end
+      # New entries are the ones in the stale array
+      new? = fn {module, _, _} -> Enum.any?(stale, &(elem(&1, 0) == module)) end
 
-     entries = (entries -- entries_to_remove) |> Enum.filter(&!new?.(&1))
-     entries = entries ++ Enum.map(stale, fn {module, dest} ->
-       {module, module.module_info[:md5], dest}
-     end)
+      entries = (entries -- entries_to_remove) |> Enum.filter(&(!new?.(&1)))
 
-     write_manifest(manifest, :lists.usort(entries))
+      entries =
+        entries ++
+          Enum.map(stale, fn {module, dest} ->
+            {module, module.module_info[:md5], dest}
+          end)
 
-     if :error in results do
-       Mix.raise "Encountered compilation errors"
-     end
-     :ok
+      write_manifest(manifest, :lists.usort(entries))
 
+      if :error in results do
+        Mix.raise("Encountered compilation errors")
+      end
+
+      :ok
     end
   end
 
@@ -84,6 +92,7 @@ defmodule Mix.Compilers.Phoenix.JsRoutes do
   end
 
   defp stale?(_, {nil, nil, nil}), do: true
+
   defp stale?(module, {_, hash, _}) do
     module.module_info[:md5] != hash
   end
@@ -93,36 +102,39 @@ defmodule Mix.Compilers.Phoenix.JsRoutes do
   end
 
   defp find_manifest_entry(manifest_entries, module) do
-    Enum.find(manifest_entries, {nil, nil, nil}, &elem(&1, 0) == module)
+    Enum.find(manifest_entries, {nil, nil, nil}, &(elem(&1, 0) == module))
   end
 
   def read_manifest(manifest) do
     case File.read(manifest) do
-      {:error, _} -> []
+      {:error, _} ->
+        []
+
       {:ok, content} ->
         :erlang.binary_to_term(content) |> parse_manifest
     end
   end
 
   defp parse_manifest({@manifest_vsn, entries}), do: entries
-  defp parse_manifest({version,_}) do
-    Mix.raise "Unsupported manifest version (#{version})"
+
+  defp parse_manifest({version, _}) do
+    Mix.raise("Unsupported manifest version (#{version})")
   end
 
   defp write_manifest(manifest, entries) do
-    content = {@manifest_vsn, entries} |> :erlang.term_to_binary
+    content = {@manifest_vsn, entries} |> :erlang.term_to_binary()
     File.write(manifest, content)
   end
 
   defp log_result(output, result) do
     case result do
       :ok ->
-        Mix.shell.info "Generated #{output}"
+        Mix.shell().info("Generated #{output}")
         :ok
+
       {:error, error} ->
-        Mix.shell.info "Error generating #{output}\n#{inspect error}"
+        Mix.shell().info("Error generating #{output}\n#{inspect(error)}")
         :error
     end
   end
-
 end
