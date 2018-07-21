@@ -95,6 +95,7 @@ config :my_app, MyApp.Endpoint,
 
 Key | Type | Default | Description  |
 | --- | --- | --- | --- |
+router | Module | MyApp.Router | The Router module used to derive routes
 output_folder | String | web/static/js | Sets the folder used to generate files
 include | Regex | nil | Will include only routes matching this regex
 exclude | Regex | nil | Will include only routes not matching this regex
@@ -102,6 +103,7 @@ exclude | Regex | nil | Will include only routes not matching this regex
 Configurations should be added to the key ```:jsroutes``` in your application.
 ```elixir
 config :my_app, :jsroutes,
+  router: MyAppWeb.Router,
   output_folder: "priv/static/js",
   include: ~r[/api],
   exclude: ~r[/admin]
