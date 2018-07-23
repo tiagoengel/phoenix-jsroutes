@@ -1,6 +1,6 @@
 language: elixir
 elixir:
-  - 1.2.2
+  - 1.6
 
 install:
   - curl -sL https://deb.nodesource.com/setup_4.x | sudo -E bash -
@@ -8,7 +8,7 @@ install:
   - mix local.hex --force
   - mix deps.get
   - cd example && mix deps.get && npm install
-  - cd .. 
+  - cd ..
 
 before_script:
   - phantomjs -w &
