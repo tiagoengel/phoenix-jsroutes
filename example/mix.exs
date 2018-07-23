@@ -5,7 +5,7 @@ defmodule JsRoutesExample.MixProject do
     [
       app: :js_routes_example,
       version: "0.1.0",
-      elixir: "~> 1.3",
+      elixir: "~> 1.4",
       elixirc_paths: elixirc_paths(Mix.env()),
       compilers: [:phoenix, :gettext] ++ Mix.compilers() ++ [:jsroutes],
       start_permanent: Mix.env() == :prod,
