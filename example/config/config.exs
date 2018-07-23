@@ -27,6 +27,18 @@ config :logger, :console,
 config :phoenix, :json_library, Jason
 config :ecto, :json_library, Jason
 
+# Watch static and templates for browser reloading.
+config :js_routes_example, JsRoutesExampleWeb.Endpoint,
+  live_reload: [
+    patterns: [
+      ~r{priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$},
+      ~r{priv/gettext/.*(po)$},
+      ~r{lib/js_routes_example_web/router\.ex$},
+      ~r{lib/js_routes_example_web/views/.*(ex)$},
+      ~r{lib/js_routes_example_web/templates/.*(eex)$}
+    ]
+  ]
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env()}.exs"

@@ -11,6 +11,7 @@ config :js_routes_example, JsRoutesExampleWeb.Endpoint,
   debug_errors: true,
   code_reloader: true,
   check_origin: false,
+  reloadable_compilers: [:gettext, :phoenix, :elixir, :jsroutes],
   watchers: [
     node: [
       "node_modules/webpack/bin/webpack.js",
@@ -43,17 +44,6 @@ config :js_routes_example, JsRoutesExampleWeb.Endpoint,
 # If desired, both `http:` and `https:` keys can be
 # configured to run both http and https servers on
 # different ports.
-
-# Watch static and templates for browser reloading.
-config :js_routes_example, JsRoutesExampleWeb.Endpoint,
-  live_reload: [
-    patterns: [
-      ~r{priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$},
-      ~r{priv/gettext/.*(po)$},
-      ~r{lib/js_routes_example_web/views/.*(ex)$},
-      ~r{lib/js_routes_example_web/templates/.*(eex)$}
-    ]
-  ]
 
 # Do not include metadata nor timestamps in development logs
 config :logger, :console, format: "[$level] $message\n"
