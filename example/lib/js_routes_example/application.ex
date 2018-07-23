@@ -6,10 +6,11 @@ defmodule JsRoutesExample.Application do
   use Application
 
   def start(_type, _args) do
+    import Supervisor.Spec
     # List all child processes to be supervised
     children = [
       # Start the endpoint when the application starts
-      JsRoutesExampleWeb.Endpoint
+      worker(JsRoutesExampleWeb.Endpoint, [])
       # Starts a worker by calling: JsRoutesExample.Worker.start_link(arg)
       # {JsRoutesExample.Worker, arg},
     ]
