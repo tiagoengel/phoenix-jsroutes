@@ -46,9 +46,9 @@ defmodule JsRoutesExampleWeb.PhoenixJsRoutesTest do
   end
 
   defp with_new_routes(new_routes, func) do
-    router_path = Path.expand("../../web/router.ex", __DIR__)
+    router_path = Path.expand("../../../lib/js_routes_example_web/router.ex", __DIR__)
     original_route = File.read!(router_path)
-    jsrouter_path = Path.expand("../../priv/static/js/phoenix-jsroutes.js", __DIR__)
+    jsrouter_path = Path.expand("../../../priv/static/js/phoenix-jsroutes.js", __DIR__)
     original_jsroute = File.read!(jsrouter_path)
 
     try do
