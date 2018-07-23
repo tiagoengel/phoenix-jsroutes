@@ -1,4 +1,4 @@
-defmodule JsRoutesExample.IntegrationCase do
+defmodule JsRoutesExampleWeb.IntegrationCase do
   use ExUnit.CaseTemplate, async: false
   use Hound.Helpers
 
@@ -6,16 +6,16 @@ defmodule JsRoutesExample.IntegrationCase do
     quote do
       use Hound.Helpers
 
-      import JsRoutesExample.Router.Helpers
-      import JsRoutesExample.IntegrationCase
+      import JsRoutesExampleWeb.Router.Helpers
+      import JsRoutesExampleWeb.IntegrationCase
 
       # The default endpoint for testing
-      @endpoint JsRoutesExample.Endpoint
+      @endpoint JsRoutesExampleWeb.Endpoint
 
-      hound_session
+      hound_session()
 
       setup tags do
-        maximize_window current_window_handle
+        maximize_window(current_window_handle())
         :ok
       end
     end

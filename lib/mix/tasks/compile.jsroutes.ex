@@ -14,7 +14,7 @@ defmodule Mix.Tasks.Compile.Jsroutes do
     app = Mix.Project.config()[:app]
     app_env = Application.get_env(app, :jsroutes) || Keyword.new()
     output_folder = Keyword.get(app_env, :output_folder, @default_out_folder)
-    module = router(app, app_env)
+    module = router(app, task_opts)
     file = Path.join(output_folder, @default_out_file)
     mappings = [{module, file}]
 
@@ -60,7 +60,7 @@ defmodule Mix.Tasks.Compile.Jsroutes do
 
   defp base(app) do
     case Application.get_env(app, :namespace, app) do
-      ^app -> app |> to_string |> Macro.camelize()
+      ^app -> "#{to_string(app)}_web" |> Macro.camelize()
       mod -> mod |> inspect
     end
   end

@@ -1,7 +1,9 @@
-defmodule JsRoutesExample.Endpoint do
+defmodule JsRoutesExampleWeb.Endpoint do
   use Phoenix.Endpoint, otp_app: :js_routes_example
 
-  socket "/socket", JsRoutesExample.UserSocket
+  socket "/socket", JsRoutesExampleWeb.UserSocket,
+    websocket: true,
+    longpoll: false
 
   # Serve at "/" the static files from "priv/static" directory.
   #
@@ -25,15 +27,18 @@ defmodule JsRoutesExample.Endpoint do
   plug Plug.Parsers,
     parsers: [:urlencoded, :multipart, :json],
     pass: ["*/*"],
-    json_decoder: Poison
+    json_decoder: Phoenix.json_library()
 
   plug Plug.MethodOverride
   plug Plug.Head
 
+  # The session will be stored in the cookie and signed,
+  # this means its contents can be read but not tampered with.
+  # Set :encryption_salt if you would also like to encrypt it.
   plug Plug.Session,
     store: :cookie,
-    key: "_example_key",
-    signing_salt: "hqWCDyuV"
+    key: "_js_routes_example_key",
+    signing_salt: "IDgCboFG"
 
-  plug JsRoutesExample.Router
+  plug JsRoutesExampleWeb.Router
 end

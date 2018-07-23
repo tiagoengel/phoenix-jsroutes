@@ -9,7 +9,7 @@ to use in a normal app. Most of it is due to the travis environment.
 
 # Running
 
-First run `mix deps.get && npm install` then `mix phoenix.server`
+First run `mix deps.get && npm install` then `mix phx.server`
 
 Navigate to `/` and you will see the routes defined in the `router.ex`.
 
