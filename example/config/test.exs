@@ -10,10 +10,3 @@ config :js_routes_example, JsRoutesExampleWeb.Endpoint,
 
 # Print only warnings and errors during test
 config :logger, level: :warn
-
-# config :hound, driver: "selenium"
-# config :hound, browser: "chrome"
-
-config :hound, driver: "phantomjs"
-config :hound, http: [timeout: :infinity]
-config :hound, http: [recv_timeout: :infinity]

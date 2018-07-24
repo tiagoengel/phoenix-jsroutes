@@ -1,23 +1,30 @@
 defmodule JsRoutesExampleWeb.PhoenixJsRoutesTest do
   use JsRoutesExampleWeb.IntegrationCase
 
-  test "have access to router functions" do
-    navigate_to("/")
-    routes = get_visible_routes()
+  test "have access to router functions", %{session: session} do
+    routes =
+      session
+      |> visit("/")
+      |> get_visible_routes()
+
     assert length(routes) == 3
     assert routes == default_routes()
   end
 
-  test "recompiles the js router when the router changes" do
-    navigate_to("/")
+  test "recompiles the js router when the router changes", %{session: session} do
+    routes =
+      session
+      |> visit("/")
+      |> get_visible_routes()
+
+    assert length(routes) == 3
+
     new_routes = "
     get \"user/:id\", TestUserController, :index
     post \"user/:userId/projects/:id\", TestUserProjectsController, :update
     "
 
     with_new_routes(new_routes, fn ->
-      refresh_page()
-
       expected_routes =
         default_routes() ++
           [
@@ -25,18 +32,24 @@ defmodule JsRoutesExampleWeb.PhoenixJsRoutesTest do
             {"testUserProjectsUpdate", "/test/user/0/projects/1"}
           ]
 
-      routes = get_visible_routes()
+      routes =
+        session
+        |> visit("/")
+        |> get_visible_routes()
+
       assert length(routes) == 5
       assert routes == expected_routes
     end)
   end
 
-  defp get_visible_routes do
-    find_element(:css, "#routes-container")
-    |> find_all_within_element(:tag, "li")
+  defp get_visible_routes(page) do
+    page
+    |> find(css("#routes-container"))
+    |> all(css("li"))
     |> Enum.map(fn li ->
-      find_all_within_element(li, :tag, "span")
-      |> Enum.map(&visible_text/1)
+      li
+      |> all(css("span"))
+      |> Enum.map(&Wallaby.Element.text/1)
       |> List.to_tuple()
     end)
   end

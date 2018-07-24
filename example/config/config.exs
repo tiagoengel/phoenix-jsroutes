@@ -25,7 +25,6 @@ config :logger, :console,
 
 # Use Jason for JSON parsing in Phoenix and Ecto
 config :phoenix, :json_library, Jason
-config :ecto, :json_library, Jason
 
 # Watch static and templates for browser reloading.
 config :js_routes_example, JsRoutesExampleWeb.Endpoint,

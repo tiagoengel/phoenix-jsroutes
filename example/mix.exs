@@ -41,7 +41,7 @@ defmodule JsRoutesExample.MixProject do
       {:jason, "~> 1.0"},
       {:cowboy, "~> 1.0"},
       {:phoenix_jsroutes, path: "../"},
-      {:hound, "~> 1.0", only: :test}
+      {:wallaby, "~> 0.20.0", [runtime: false, only: :test]}
     ]
   end
 end
