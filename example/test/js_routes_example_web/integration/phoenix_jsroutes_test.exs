@@ -20,8 +20,8 @@ defmodule JsRoutesExampleWeb.PhoenixJsRoutesTest do
     assert length(routes) == 3
 
     new_routes = "
-    get \"user/:id\", TestUserController, :index
-    post \"user/:userId/projects/:id\", TestUserProjectsController, :update
+    get \"/user/:id\", TestUserController, :index
+    post \"/user/:userId/projects/:id\", TestUserProjectsController, :update
     "
 
     with_new_routes(new_routes, fn ->
@@ -65,7 +65,7 @@ defmodule JsRoutesExampleWeb.PhoenixJsRoutesTest do
     original_jsroute = File.read!(jsrouter_path)
 
     try do
-      new_file = String.replace(original_route, ~r/#TEST-PLACEHOLDER#/, new_routes)
+      new_file = String.replace(original_route, ~r/# TEST-PLACEHOLDER #/, new_routes)
       File.write!(router_path, new_file)
       func.()
     after

@@ -29,7 +29,7 @@ defmodule JsRoutesExampleWeb.Router do
   end
 
   scope "/test", JsRoutesExampleWeb do
-    #TEST-PLACEHOLDER#
+    # TEST-PLACEHOLDER #
   end
 
   # Other scopes may use custom stacks.
