@@ -19,7 +19,7 @@
       </main>
 
     </div> <!-- /container -->
-    <script src="<%= Routes.static_path(@conn, "/js/phoenix-jsroutes.js?#{:os.system_time(:millisecond)}") %>"></script>
+    <script src="<%= Routes.static_path(@conn, "/js/phoenix-jsroutes.js") %>"></script>
     <script src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
   </body>
 </html>
