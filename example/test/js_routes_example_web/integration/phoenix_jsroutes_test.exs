@@ -32,6 +32,8 @@ defmodule JsRoutesExampleWeb.PhoenixJsRoutesTest do
             {"testUserProjectsUpdate", "/test/user/0/projects/1"}
           ]
 
+      :timer.sleep(1000)
+
       routes =
         session
         |> visit("/")
