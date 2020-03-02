@@ -114,7 +114,7 @@ open an issue so we can discuss your ideas, if you're confident in implementing 
 
 ## Contributors
 
-Special thanks to this guys who have helped me starting this project.
+Special thanks to thep people who have helped me start this project.
 
 <br/>[Marcio Junior](https://github.com/marcioj)
 <br/>[Horacio Fernandes](https://github.com/horaciosystem)
