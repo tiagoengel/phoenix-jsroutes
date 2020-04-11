@@ -3,6 +3,10 @@ defmodule PhoenixJsroutes do
     "#{helper}_#{opts}" |> Macro.camelize() |> downcase_first
   end
 
+  def function_name(%{helper: helper, plug_opts: opts}) do
+    "#{helper}_#{opts}" |> Macro.camelize() |> downcase_first
+  end
+
   defp downcase_first(<<first::utf8, rest::binary>>) do
     String.downcase(<<first>>) <> rest
   end

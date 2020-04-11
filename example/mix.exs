@@ -32,14 +32,15 @@ defmodule JsRoutesExample.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
-      {:phoenix, "~> 1.3"},
+      {:phoenix, "~> 1.4"},
       {:phoenix_pubsub, "~> 1.0"},
       {:postgrex, ">= 0.0.0"},
       {:phoenix_html, "~> 2.11"},
       {:phoenix_live_reload, "~> 1.0"},
       {:gettext, "~> 0.14"},
       {:jason, "~> 1.0"},
-      {:cowboy, "~> 1.0"},
+      {:plug_cowboy, "~> 2.0"},
+      {:plug, "~> 1.7"},
       {:phoenix_jsroutes, path: "../"},
       {:wallaby, "~> 0.20.0", [runtime: false, only: :test]}
     ]
