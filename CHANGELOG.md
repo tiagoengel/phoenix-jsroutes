@@ -2,5 +2,5 @@
 
 **Breaking:**
 
-- Upgraded to phoenix 1.3.
+- Upgraded to phoenix 1.4.
 - Moved default outuput folder from "web/static/js" to "assets/statics/js".

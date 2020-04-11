@@ -1,0 +1,27 @@
+/* This file is for your main application css. */
+
+body, form, ul, table {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+#routes-container {
+  font-size: 20px;
+}
+
+#routes-container li {
+  display: flex;
+  margin: 5px 0;
+}
+
+#routes-container li > span {
+  padding: 5px;
+}
+
+#routes-container li > span:first-child {
+  min-width: 200px;
+  border-bottom: 1px solid #E8E7E7;
+}
+#routes-container li > span:last-child {
+  background: #E8E7E7;
+}
