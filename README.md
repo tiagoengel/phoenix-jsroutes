@@ -46,10 +46,10 @@ The functions are generated with different names from the ones in the server in 
 	user_friends_path(:update, 1, 2) => userFriendsUpdate(1, 2)
 
 
-If you are using the default phoenix configuration with ```brunchjs``` (or any other commonjs compatible build tool like webpack and browserify) you can use the helpers like this
+If you are using the default phoenix configuration with ```webpack``` (or any other commonjs compatible build tool like webpack and browserify) you can use the helpers like this
 
 ```javascript
-import routes from './phoenix-jsroutes'
+import routes from '../static/js/phoenix-jsroutes'
 routes.userIndex(); // /users
 routes.userCreate(); // /users
 routes.userUpdate(1); // /users/1
@@ -59,7 +59,7 @@ routes.userFriendsUpdate(1, 2); // /users/1/friends/2
 You can also import only the routes you need
 
 ```javascript
-import { userIndex, userUpdate } from './phoenix-jsroutes';
+import { userIndex, userUpdate } from '../static/js/phoenix-jsroutes';
 userIndex();
 userUpdate(1);
 ```
@@ -95,14 +95,14 @@ config :my_app, MyApp.Endpoint,
 
 Key | Type | Default | Description  |
 | --- | --- | --- | --- |
-output_folder | String | web/static/js | Sets the folder used to generate files
+output_folder | String | assets/static/js | Sets the folder used to generate files
 include | Regex | nil | Will include only routes matching this regex
 exclude | Regex | nil | Will include only routes not matching this regex
 
 Configurations should be added to the key ```:jsroutes``` in your application.
 ```elixir
 config :my_app, :jsroutes,
-  output_folder: "priv/static/js",
+  output_folder: "assets/static/js",
   include: ~r[/api],
   exclude: ~r[/admin]
 ```

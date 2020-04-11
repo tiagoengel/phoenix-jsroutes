@@ -1,23 +1,16 @@
-defmodule JsRoutesExample.IntegrationCase do
+defmodule JsRoutesExampleWeb.IntegrationCase do
   use ExUnit.CaseTemplate, async: false
-  use Hound.Helpers
 
   using do
     quote do
-      use Hound.Helpers
-
-      import JsRoutesExample.Router.Helpers
-      import JsRoutesExample.IntegrationCase
-
-      # The default endpoint for testing
-      @endpoint JsRoutesExample.Endpoint
-
-      hound_session
-
-      setup tags do
-        maximize_window current_window_handle
-        :ok
-      end
+      use Wallaby.DSL
+      import Wallaby.Query
+      import Wallaby.Browser
     end
+  end
+
+  setup do
+    {:ok, session} = Wallaby.start_session()
+    {:ok, session: session}
   end
 end
