@@ -19,4 +19,4 @@ Change the `router.ex` file and refresh the page the see the live reload compile
 
 You will need to install and start phantomjs. `npm install -g phantomjs && phantomjs -w`
 
-Then run `WALLABY_DRIVER=phantom MIX_ENV=test mix compile && mix test`
+Then run `WALLABY_DRIVER=phantom MIX_ENV=test && (cd assets && npm run deploy) && mix compile && mix test`

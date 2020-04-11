@@ -10,10 +10,10 @@ install:
   - mix local.hex --force
   - mix local.rebar --force
   - mix deps.get
-  - cd example && mix deps.get && npm install
+  - (cd example && mix deps.get && cd assets && npm install)
   - cd ..
 
 before_script:
   - phantomjs -w &
 
-script: mix test && cd example && WEBDRIVER=phantomjs MIX_ENV=test mix compile && mix test
+script: mix test && cd example && WALLABY_DRIVER=phantom MIX_ENV=test && (cd assets && npm run deploy) && mix compile && mix test
