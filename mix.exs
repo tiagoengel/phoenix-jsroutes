@@ -4,7 +4,7 @@ defmodule PhoenixJsroutes.Mixfile do
   def project do
     [
       app: :phoenix_jsroutes,
-      version: "0.0.4",
+      version: "1.0.0",
       elixir: "~> 1.4",
       build_embedded: Mix.env() == :prod,
       start_permanent: Mix.env() == :prod,
@@ -23,7 +23,8 @@ defmodule PhoenixJsroutes.Mixfile do
       {:phoenix, ">= 1.4.0", only: :test},
       {:execjs, "~> 1.2",
        github: "devinus/execjs", sha: "a1c0af4c3b0afc9d6f176bf82f9c5b9fae3f2a45", only: :test},
-      {:poison, "~> 3.0", override: true}
+      {:poison, "~> 3.0"},
+      {:ex_doc, ">= 0.0.0", only: :dev, runtime: false}
     ]
   end
 
