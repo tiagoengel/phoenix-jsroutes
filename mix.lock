@@ -1,4 +1,8 @@
-%{"execjs": {:hex, :execjs, "1.1.3", "452e5f3ed0c13ecd4334f66535c2209f27f2e96b78933a3ef74ec73193a59cf3", [:mix], [{:poison, "~> 1.5", [hex: :poison, optional: false]}]},
-  "phoenix": {:hex, :phoenix, "1.1.6", "7bf19002669c8f692f5a9c8d30dab7b49f3dc56228d5bde92a12fb426b4783c2", [:mix], [{:cowboy, "~> 1.0", [hex: :cowboy, optional: true]}, {:plug, "~> 1.0", [hex: :plug, optional: false]}, {:poison, "~> 1.5 or ~> 2.0", [hex: :poison, optional: false]}]},
-  "plug": {:hex, :plug, "1.1.5", "de5645c18170415a72b18cc3d215c05321ddecac27a15acb923742156e98278b", [:mix], [{:cowboy, "~> 1.0", [hex: :cowboy, optional: true]}]},
-  "poison": {:hex, :poison, "1.5.2", "560bdfb7449e3ddd23a096929fb9fc2122f709bcc758b2d5d5a5c7d0ea848910", [:mix], []}}
+%{
+  "execjs": {:git, "https://github.com/devinus/execjs.git", "a1c0af4c3b0afc9d6f176bf82f9c5b9fae3f2a45", []},
+  "mime": {:hex, :mime, "1.3.0", "5e8d45a39e95c650900d03f897fbf99ae04f60ab1daa4a34c7a20a5151b7a5fe", [:mix], [], "hexpm", "5e839994289d60326aa86020c4fbd9c6938af188ecddab2579f07b66cd665328"},
+  "phoenix": {:hex, :phoenix, "1.3.3", "bafb5fa408d202e8d9f739e781bdb908446a2c1c1e00797c1158918ed55566a4", [:mix], [{:cowboy, "~> 1.0", [hex: :cowboy, repo: "hexpm", optional: true]}, {:phoenix_pubsub, "~> 1.0", [hex: :phoenix_pubsub, repo: "hexpm", optional: false]}, {:plug, "~> 1.3.3 or ~> 1.4", [hex: :plug, repo: "hexpm", optional: false]}, {:poison, "~> 2.2 or ~> 3.0", [hex: :poison, repo: "hexpm", optional: false]}], "hexpm", "8bde28268d88de0c3141da0945ee2da93bd33473f94e19305dcf174a8dd42bac"},
+  "phoenix_pubsub": {:hex, :phoenix_pubsub, "1.0.2", "bfa7fd52788b5eaa09cb51ff9fcad1d9edfeb68251add458523f839392f034c1", [:mix], [], "hexpm", "6f9193364c5de86b85e8d3a80294a134aecf6c5618adcbae668608749e00a7f7"},
+  "plug": {:hex, :plug, "1.6.1", "c62fe7623d035020cf989820b38490460e6903ab7eee29e234b7586e9b6c91d6", [:mix], [{:cowboy, "~> 1.0.1 or ~> 1.1 or ~> 2.4", [hex: :cowboy, repo: "hexpm", optional: true]}, {:mime, "~> 1.0", [hex: :mime, repo: "hexpm", optional: false]}], "hexpm", "8dfa0b80197f121db1d773f4cad0c2de3fe13249afaf43f89e1f888610bb2fa9"},
+  "poison": {:hex, :poison, "3.1.0", "d9eb636610e096f86f25d9a46f35a9facac35609a7591b3be3326e99a0484665", [:mix], [], "hexpm", "fec8660eb7733ee4117b85f55799fd3833eb769a6df71ccf8903e8dc5447cfce"},
+}

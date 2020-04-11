@@ -1,0 +1,32 @@
+name: Elixir CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup elixir
+      uses: actions/setup-elixir@v1
+      with:
+        node-version: 10.x
+        elixir-version: 1.9.4 # Define the elixir version [required]
+        otp-version: 22.2 # Define the OTP version [required]
+    - name: Install Dependencies
+      run: |
+        mix local.hex --force
+        mix local.rebar --force
+        mix deps.get
+        (cd example && mix deps.get && cd assets && npm install)
+        npm install phantomjs
+    - name: Run Tests
+      run: |
+        node_modules/phantomjs/bin/phantomjs -w &
+        mix test
+        cd example && WALLABY_DRIVER=phantom MIX_ENV=test && (cd assets && npm run deploy) && mix compile && mix test
