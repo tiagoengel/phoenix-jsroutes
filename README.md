@@ -19,10 +19,8 @@ end
 
 | Version | Phoenix Version |
 | ------- | --------------- |
-| >= 1.0  | 1.3.x and 1.4.x |
+| >= 1.0  | >= 1.3          |
 | <= 0.4  | <= 1.2          |
-
-NOTE: Those are tested versions, it does not mean it will not work on newer versions.
 
 ## Getting started
 
@@ -99,6 +97,9 @@ config :my_app, MyApp.Endpoint,
   ...
   reloadable_compilers: [:gettext, :phoenix, :elixir, :jsroutes]
 ```
+
+NOTE: if you are using version >= 1.5 of Phoenix you might need to reload the page once or twice for
+changes to take effect.
 
 ## Configuration
 
