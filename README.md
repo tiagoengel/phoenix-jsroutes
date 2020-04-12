@@ -1,6 +1,6 @@
 # PhoenixJsroutes
 
-![build](https://travis-ci.org/tiagoengel/phoenix-jsroutes.svg?branch=master)
+![Elixir CI](https://github.com/tiagoengel/phoenix-jsroutes/workflows/Elixir%20CI/badge.svg)
 
 Brings phoenix router helpers to your javascript code.
 
