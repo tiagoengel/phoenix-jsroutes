@@ -63,14 +63,16 @@ defmodule JsRoutesExampleWeb.PhoenixJsRoutesTest do
   defp with_new_routes(new_routes, func) do
     router_path = Path.expand("../../../lib/js_routes_example_web/router.ex", __DIR__)
     original_route = File.read!(router_path)
-    jsrouter_path = Path.expand("../../../priv/static/js/phoenix-jsroutes.js", __DIR__)
+    jsrouter_path = Path.expand("../../../assets/js/phoenix-jsroutes.js", __DIR__)
     original_jsroute = File.read!(jsrouter_path)
 
     try do
       new_file = String.replace(original_route, ~r/# TEST-PLACEHOLDER #/, new_routes)
       File.write!(router_path, new_file)
       # We are not running the dev server so we need to recompile the javascript code
+      Mix.Shell.IO.info("Recompiling js files....")
       Mix.Shell.IO.cmd("cd assets && npm run deploy")
+      :timer.sleep(1000)
       func.()
     after
       File.write!(router_path, original_route)

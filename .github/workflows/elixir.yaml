@@ -30,4 +30,4 @@ jobs:
       run: |
         node_modules/phantomjs/bin/phantomjs -w &
         mix test
-        cd example && WALLABY_DRIVER=phantom MIX_ENV=test && (cd assets && npm run deploy) && mix compile && mix test --seed 0
+        cd example && WALLABY_DRIVER=phantom MIX_ENV=test && mix compile && (cd assets && npm run deploy) && mix test --seed 0
