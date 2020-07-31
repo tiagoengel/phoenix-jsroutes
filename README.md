@@ -11,7 +11,7 @@ This project is a mix compiler task that generates a javascript module containin
 Add the latest version to your `mix.exs` file:
 ```elixir
 def deps do
-  [{:phoenix_jsroutes, "~> 1.0.0"}]
+  [{:phoenix_jsroutes, "~> 2.0.0"}]
 end
 ```
 
