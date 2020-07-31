@@ -5,7 +5,7 @@ defmodule Mix.Tasks.Compile.Jsroutes do
   @shortdoc "Generates helpers to access server paths via javascript"
   @manifest ".compile.jsroutes"
 
-  @default_out_folder "assets/static/js"
+  @default_out_folder "assets/js"
   @default_out_file "phoenix-jsroutes.js"
 
   @spec run(OptionParser.argv()) :: :ok | :noop
