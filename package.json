@@ -1,0 +1,13 @@
+{
+  "name": "phoenix-jsroutes",
+  "version": "0.0.0",
+  "main": "index.js",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tiagoengel/phoenix-jsroutes.git"
+  },
+  "devDependencies": {
+    "rollup": "^2.23.0"
+  }
+}

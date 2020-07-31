@@ -25,11 +25,19 @@ defmodule Mix.Tasks.Compile.JsroutesTest do
   end
 
   test "generates a valid javascript module" do
-    run_with_env([output_folder: "/tmp"], fn ->
+    folder = "/tmp"
+    run_with_env([output_folder: folder], fn ->
       Mix.Tasks.Compile.Jsroutes.run(["--router", "Mix.RouterTest"])
-      assert_file("/tmp/phoenix-jsroutes.js")
 
-      jsroutes = Execjs.compile("var routes = require('/tmp/phoenix-jsroutes')")
+      originalFile = path(folder, "phoenix-jsroutes.js")
+      compiledFile = path(folder, "bundle.js")
+
+      assert_file(originalFile)
+
+      Mix.Shell.IO.info("\nCompiling #{originalFile} with rollup")
+      Mix.Shell.IO.cmd("npx rollup #{originalFile} --file #{compiledFile} --format cjs")
+
+      jsroutes = Execjs.compile("var routes = require('#{folder}/bundle')")
       assert call_js(jsroutes, "routes.userIndex", []) == "/users"
       assert call_js(jsroutes, "routes.userCreate", []) == "/users"
       assert call_js(jsroutes, "routes.userUpdate", [1]) == "/users/1"
@@ -39,9 +47,8 @@ defmodule Mix.Tasks.Compile.JsroutesTest do
       assert call_js(jsroutes, "routes.productIndex", []) == "/api/products"
       assert call_js(jsroutes, "routes.orderUpdate", [1]) == "/api/orders/1"
 
-      Execjs.compile("var userIndex = require('./phoenix-jsroutes')")
-
-      File.rm("/tmp/phoenix-jsroutes.js")
+      File.rm(originalFile)
+      File.rm(compiledFile)
     end)
   end
 

@@ -16,7 +16,8 @@ config :js_routes_example, JsRoutesExampleWeb.Endpoint,
   render_errors: [view: JsRoutesExampleWeb.ErrorView, accepts: ~w(html json)],
   pubsub: [name: JsRoutesExample.PubSub, adapter: Phoenix.PubSub.PG2]
 
-config :js_routes_example, :jsroutes, output_folder: "priv/static/js"
+# Change file location
+# config :js_routes_example, :jsroutes, output_folder: "assets/js/routes"
 
 # Configures Elixir's Logger
 config :logger, :console,

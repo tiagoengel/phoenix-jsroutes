@@ -1,10 +1,9 @@
-var container = document.getElementById('routes-container');
+import * as routes from "./phoenix-jsroutes";
 
-var routes = window.PhoenixJsRoutes;
+const container = document.getElementById('routes-container');
 
 Object.keys(routes).forEach((routeName) => {
-  if (routeName !== 'noConflict' && routes.hasOwnProperty(routeName)) {
-
+  if (routes.hasOwnProperty(routeName)) {
     const li = document.createElement('li');
     const routeFn = routes[routeName];
     const args = [];

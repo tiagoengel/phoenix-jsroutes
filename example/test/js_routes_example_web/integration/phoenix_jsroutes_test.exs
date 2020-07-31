@@ -69,6 +69,8 @@ defmodule JsRoutesExampleWeb.PhoenixJsRoutesTest do
     try do
       new_file = String.replace(original_route, ~r/# TEST-PLACEHOLDER #/, new_routes)
       File.write!(router_path, new_file)
+      # We are not running the dev server so we need to recompile the javascript code
+      Mix.Shell.IO.cmd("cd assets && npm run deploy")
       func.()
     after
       File.write!(router_path, original_route)

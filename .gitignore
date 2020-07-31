@@ -5,3 +5,4 @@ erl_crash.dump
 *.ez
 phoenix-jsroutes.js
 tmp
+node_modules
